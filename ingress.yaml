@@ -1,0 +1,435 @@
+# IP Address Catalogue for UAT
+
+# 59.102.104.22/32 - NOW Digital
+
+# Clubassist/ RACV
+# 52.147.33.238/32 Virtual Desktop Club Assist 1
+# 52.189.253.229/32 Virtual Desktop Club Assist 2
+# 101.181.47.133/32 - Sandy Batten
+# 110.148.167.220/32 - Club Assist Christine P
+# 110.148.178.69/32 - Maria Love
+# 117.6.178.182 -Clubassist
+# 118.70.67.134, 
+# 124.148.199.75/32 - Jerome CA Corp
+# 125.63.5.161/32 - Julian 2 (Club Assist)
+# 147.161.212.83
+# 149.167.60.113/32 - Julian (Club Assist)
+# 165.225.226.96/32 - Club Assist Melbourne 2
+# 183.91.7.198
+# 203.54.251.153/32 - Club Assist Melbourne
+# 203.54.251.154/32 - Club Assist Melbourne
+# 218.214.184.75/32 - Club Assist Keysborough
+# 222.252.27.56
+
+# NRMA
+# 35.189.0.136/32 - NRMA Fortigate
+# 116.255.40.219/32
+# 116.255.40.222/32
+# 118.127.72.38/32
+# 124.168.95.121/32
+# 203.27.116.93/32
+
+# RACT
+# 1.120.226.129/32
+# 61.69.165.213/32
+# 120.151.45.176/32
+# 139.130.62.114/32
+# 144.139.222.222/32
+# 158.140.193.216/32
+# 193.130.62.114/32
+# 203.20.20.254/32
+
+# RACQ
+# 203.21.200.0/24
+# 203.21.200.7 (P1)
+# 203.21.200.10 (P1 Common)
+# 203.21.200.36 (P1 Wireless)
+# 203.21.201.0/24
+# 203.21.202.0/24
+# 203.21.202.7 (P2)
+# 203.21.202.32 (P2 Common)
+
+# RAC WA
+# 20.53.186.197 - DCC Teleworker remote IPs
+# 20.53.187.24
+# 20.53.198.227
+# 20.70.107.116 - DCD teleworker remote IPs
+# 20.70.108.11
+# 20.190.114.114
+# 103.68.204.0/24 - RAC Collier Pass
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sitecore-ingress
+  namespace: app-routing-system
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "32k"
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-body-size: "512m"
+    # First group of IP Addresses are Azure App Service related
+    # Second group of IP addresses are related to uptime robot
+    # Third Group is NOW and CA
+    # fourth group is NRMA
+    # fifth group is RACT
+    # sixth group is RACQ
+    # seventh group is RAC WA
+    nginx.ingress.kubernetes.io/whitelist-source-range: >-
+      13.77.43.81/32,
+      13.77.50.98/32,
+      52.189.194.173/32,
+      52.189.212.69/32,
+      52.189.213.18/32,
+      52.189.213.33/32,
+      52.189.216.81/32,
+      52.189.233.66/32,
+      52.189.248.147/32, 
+      52.243.76.73/32,
+      117.6.178.182/32,
+      118.70.67.134/32,
+      183.91.7.198/32,
+      192.168.190.64/26,
+      222.252.27.56/32,
+
+      18.221.56.27/32,
+      34.233.66.117/32,
+      46.101.250.135/32,
+      46.137.190.132/32,
+      52.60.129.180/32,
+      52.70.84.165/32,
+      54.64.67.106/32,
+      54.67.10.127/32,
+      54.79.28.129/32,
+      54.94.142.218/32,
+      54.225.82.45/32,
+      63.143.42.240/28,
+      69.162.124.224/28,
+      104.131.107.63/32,
+      122.248.234.23/32,
+      124.190.33.96/32,
+      128.199.195.156/32,
+      138.197.150.151/32,
+      139.59.173.249/32,
+      146.185.143.14/32,
+      155.190.54.5/32,
+      159.89.8.111/32,
+      159.203.30.41/32,
+      165.227.83.148/32,
+      167.99.209.234/32,
+      178.62.52.237/32,
+      208.115.199.16/28,
+      216.144.248.16/28,
+      216.144.250.150/32,
+      216.245.221.80/28,
+
+      59.102.104.22/32,
+
+      52.147.33.238/32,
+      52.189.253.229/32,
+      110.148.167.220/32,
+      147.161.212.83/32,
+      149.167.60.113/32,
+      203.54.251.153/32,
+      203.54.251.154/32,
+      218.214.184.75/32,
+
+      35.189.0.136/32,
+      116.255.40.219/32,
+      116.255.40.222/32,
+      118.127.72.38/32,
+      124.168.95.121/32,
+      203.27.116.93/32,
+
+      1.120.226.129/32,
+      61.69.165.213/32,
+      120.151.45.176/32,
+      139.130.62.114/32,
+      144.139.222.222/32,
+      158.140.193.216/32,
+      193.130.62.114/32,
+      203.20.20.254/32,
+
+      203.21.200.0/24,
+      203.21.200.7,
+      203.21.200.10,
+      203.21.200.36,
+      203.21.201.0/24,
+      203.21.202.0/24,
+      203.21.202.7,
+      203.21.202.32,
+
+      20.53.186.197,
+      20.53.187.24,
+      20.53.198.227,
+      20.70.107.116,
+      20.70.108.11,
+      20.190.114.114,
+      103.68.204.0/24
+
+spec:
+  rules: 
+  - host: sitecore-cm-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cm
+            port:
+              number: 80
+  - host: nrma-battery-stgauth.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cm
+            port:
+              number: 80
+  - host: racv-batteryadmin-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cm
+            port:
+              number: 80
+  - host: nrma-batteryadmin-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cm
+            port:
+              number: 80
+  - host: ract-batteryadmin-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cm
+            port:
+              number: 80
+  - host: racq-batteryadmin-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cm
+            port:
+              number: 80
+  - host: rac-batteryadmin-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cm
+            port:
+              number: 80
+  - host: masterfitadmin-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cm
+            port:
+              number: 80
+  - host: sitecore-id-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: id
+            port:
+              number: 80
+  - host: sitecore-bizfx-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: bizfx
+            port:
+              number: 80
+  - host: sitecore-authoring-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: engine-authoring
+            port:
+              number: 5000
+  - host: sitecore-minions-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: engine-minions
+            port:
+              number: 5000
+  - host: sitecore-ops-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: engine-ops
+            port:
+              number: 5000
+  - host: sitecore-shops-stg.clubassist.com.au
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: engine-shops
+            port:
+              number: 5000
+  tls:
+  - secretName: global-cm-tls
+    hosts:
+    - sitecore-cm-stg.clubassist.com.au
+  - secretName: global-id-tls
+    hosts:
+    - sitecore-id-stg.clubassist.com.au
+  - secretName: global-bizfx-tls
+    hosts:
+    - sitecore-bizfx-stg.clubassist.com.au
+  - secretName: global-authoring-tls
+    hosts:
+    - sitecore-authoring-stg.clubassist.com.au
+  - secretName: global-minions-tls
+    hosts:
+    - sitecore-minions-stg.clubassist.com.au
+  - secretName: global-ops-tls
+    hosts:
+    - sitecore-ops-stg.clubassist.com.au
+  - secretName: global-shops-tls
+    hosts:
+    - sitecore-shops-stg.clubassist.com.au
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sitecore-delivery-ingress
+  namespace: app-routing-system
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "32k"
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-body-size: "512m"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - host: cd.globalhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cd
+            port:
+              number: 80
+  - host: nrma-clubassist-stg.globalhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cd
+            port:
+              number: 80
+  - host: racv-clubassist-stg.globalhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cd
+            port:
+              number: 80
+  - host: ract-clubassist-stg.globalhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cd
+            port:
+              number: 80
+  - host: racq-clubassist-stg.globalhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cd
+            port:
+              number: 80
+  - host: rac-clubassist-stg.globalhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cd
+            port:
+              number: 80
+  - host: corporate-clubassist-stg.globalhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cd
+            port:
+              number: 80 
+  - host: masterfit-stg.globalhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cd
+            port:
+              number: 80
