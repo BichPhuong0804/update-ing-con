@@ -1,4 +1,4 @@
-apiVersion: extensions/v1
+apiVersion: eapps/v1
 kind: DaemonSet
 metadata:
   name: nginx-ingress-controller
